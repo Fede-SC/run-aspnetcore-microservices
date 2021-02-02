@@ -19,10 +19,10 @@ services:
     orderdb:
         container_name: orderdb
         ports:
-            - "1433:1433"
+            - "5432:5432"
         environment:
-            SA_PASSWORD: "SwN12345678"
-            ACCEPT_EULA: "Y"
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
 
     rabbitmq:
         container_name: rabbitmq
@@ -64,7 +64,7 @@ services:
         restart: on-failure
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - "ConnectionStrings:OrderConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN12345678"
+            - "ConnectionStrings:Host=orderdb;Database=OrderDb;Username=postgres;Password=password"
             - "EventBus:HostName=rabbitmq"
         depends_on:
             - orderdb
